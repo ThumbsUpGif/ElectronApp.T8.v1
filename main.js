@@ -5,8 +5,8 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 490,
-    height: 760
+    width: 900,
+    height: 600
   })
 
   // and load the index.html of the app.

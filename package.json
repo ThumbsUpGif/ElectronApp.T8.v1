@@ -1,14 +1,14 @@
 {
-	"name": "electron-demo-app",
+	"name": "electron-countdown-timer",
 	"version": "1.0.0",
 	"description": "A minimal Electron application",
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"build-macOs": "electron-packager . Pomodoro --out=./builds --overwrite --icon=./app_icons/Pomodoro-Icon.icns"
+		"build-macOs": "electron-packager . OandD --out=./builds --overwrite --icon=./app_icons/FirstAttempt.icns"
 	},
-	"repository": "https://github.com/olivierklaver/ElectronApp",
-	"author": "Olivier Klaver",
+	"repository": "",
+	"author": "Magnus Jorde",
 	"license": "CC0-1.0",
 	"devDependencies": {
 		"electron": "^12.0.7",
