@@ -1,12 +1,18 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {
+  app,
+  BrowserWindow
+} = require('electron')
 const path = require('path')
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 600
+    width: 1200,
+    height: 700,
+    // titleBarStyle: 'hidden',
+    titleBarStyle: 'hiddenInset',
+    // titleBarStyle: 'customButtonsOnHover',
   })
 
   // and load the index.html of the app.
@@ -26,6 +32,7 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+
   })
 })
 

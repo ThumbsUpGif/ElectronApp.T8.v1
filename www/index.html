@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/DatePicker1.css">
+    <link rel="stylesheet" href="css/CountdownTimer.css">
 
     <title>Occasions & Deadlines</title>
 
@@ -18,35 +18,40 @@
 
 <body>
     <div class="container">
-        <!-- welcome message and input area - should show on start then dissappear after you click buttton-->
+
+        <!-- welcome message and input area - should show on start then disappear after you click buttton-->
 
         <div class="" id="input-hide">
             <div class="row">
 
                 <div class="col s12 m12 distance-1"></div>
 
-                <div class="col s12 m3"></div>
-                <div class="col s12 m6">
+                <div class="col s12 m2"></div>
+                <div class="col s12 m8">
 
-                    <h2>
+                    <h2 style="text-align: center;">
                         Countdown to your special occasion!
                     </h2>
+                    <br>
+                 
 
                 </div>
-                <div class="col s12 m3"></div>
+                <div class="col s12 m2"></div>
             </div>
 
             <div class="row">
                 <div class="col s12 m3"></div>
                 <div class="col s12 m6">
                     <form action="">
+
                         <div class="input-field">
                             <input type="text" id="special-date" class="datepicker" placeholder="click here">
-                            <label for="date">tell us the date of your special occasion</label>
+                            <label for="date" style="font-size: 20px; color: rgba(67, 67, 67, 0.87">when is 
+                                your special occasion?</label>
                         </div>
                     </form>
 
-                    
+
                 </div>
                 <div class="col s12 m3"></div>
 
@@ -60,19 +65,24 @@
                         <div class="input-field">
                             <textarea class="materialize-textarea" name="user-occasion" id="user-occasion"
                                 placeholder="e.g. my birthday"></textarea>
-                            <label for="user-occasion">what is your special occasion?</label>
+                            <label for="user-occasion" style="font-size: 20px; color: rgba(67, 67, 67, 0.87">what is
+                                your special occasion?</label>
                         </div>
 
 
                     </form>
 
-                    <button onclick="enterSpecialDate()">Enter</button>
+                    <br>
+                    <br>
+
+                    <button style=" height: 26px; width: 60px; border-radius: 5px; border: solid 0.5px #333;"
+                        onclick="enterSpecialDate()">Enter</button>
                 </div>
                 <div class="col s12 m3"></div>
             </div>
 
 
-            
+
 
         </div>
 
@@ -115,7 +125,7 @@
                         <span id="unit">seconds</span>
                     </div>
 
-                    <!-- <div class="time col s12 m3"></div> -->
+                   
                 </div>
 
                 <div class="col s12 m12 distance-3"></div>
@@ -131,7 +141,7 @@
                     </div>
                 </div>
 
-                
+
 
             </div>
 
@@ -143,15 +153,12 @@
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="javascript" src="p5.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
-
-     
-     
-        // Event listener made to work with Materialize's .hide class
+      
+      // Event listener based on Materialize css .hide class
 
         let hideInput = document.getElementById('input-hide');
         // console.log(hideInput);
@@ -164,6 +171,7 @@
             if (hideInput.classList.contains("hide")) {
                 hideInput.classList.remove("hide");
                 hideCountdown.setAttribute("class", "hide")
+                localStorageDateMilliseconds === 'NaN' // this needs to be investigated further....
 
             } else {
                 hideInput.setAttribute("class", "hide");
@@ -172,8 +180,7 @@
         });
 
 
-        // Find the user's input
-
+        // Introduce the Materialize date form
         const Calender = document.querySelector('.datepicker');
         M.Datepicker.init(Calender, {
             format: 'yyyy-mm-dd',
@@ -186,65 +193,58 @@
 
         function enterSpecialDate() {
 
+            // pull date from user activity            
             let userDate = new Date(document.getElementById('special-date').value);
-            // console.log(userDate);
+            console.log(userDate)
             let currentTime = new Date();
+            console.log(currentTime);
+
+            // save the result to local storage
+            localStorage.setItem('storedObject', userDate);
+            var localStorageDate = localStorage.getItem('storedObject');
+            console.log(localStorageDate)
+            var localStorageDateMilliseconds = new Date(localStorage.getItem('storedObject'));
            
-            // window.localStorage.setItem("storedObject", userDate.value);
-            // console.log(storedObject);
-            // console.log(dtUserDate);
-
+            //calculate difference between future date and curren moment - two different methods
             let diff = userDate - currentTime;
+            console.log(diff)
+        
+            let diff2 = localStorageDateMilliseconds - currentTime; 
+            console.log(diff2)
+
+            // calculate from milliseconds back to traditional units
+            // const d = Math.floor(diff / 1000 / 60 / 60 / 24);
+            // const h = Math.floor(diff / 1000 / 60 / 60) % 24;
+            // const m = Math.floor(diff / 1000 / 60) % 60;
+            // const s = Math.floor(diff / 1000) % 60;
+
+            // make the calculation from local storage rather than input
+            const d = Math.floor(diff2 / 1000 / 60 / 60 / 24);
+            const h = Math.floor(diff2 / 1000 / 60 / 60) % 24;
+            const m = Math.floor(diff2 / 1000 / 60) % 60;
+            const s = Math.floor(diff2 / 1000) % 60;
 
 
-            /* we've been given the difference in milliseconds, so some division is needed */
-            const d = Math.floor(diff / 1000 / 60 / 60 / 24);
-            const h = Math.floor(diff / 1000 / 60 / 60) % 24;
-            const m = Math.floor(diff / 1000 / 60) % 60;
-            const s = Math.floor(diff / 1000) % 60;
 
-
-            /* send values back into HTML document */
+            // pass values back into HTML document
             document.getElementById('days').innerHTML = d;
             document.getElementById('hours').innerHTML = h;
             document.getElementById('minutes').innerHTML = m;
             document.getElementById('seconds').innerHTML = s;
 
+            // make minutes and seconds always display as two digits
             // console.log(s < 10 ? ‘0’ + s : s;) <-- I could't get this to work...
 
-            /*collect user's special occasion and send back into document*/
+            // collect user's special occasion string and pass back into document
             var userOccasion = document.getElementById('user-occasion').value;
             document.getElementById('userOccasionOutput').innerHTML = userOccasion;
-            console.log(document.getElementById('user-occasion').value);
+            // console.log(document.getElementById('user-occasion').value);
 
         }
         setInterval(enterSpecialDate, 1000);
 
 
-
-
-        // ------------------------------------------------------------------//
-        /*This was the original hide function that worked well until I introduced Materialize CSS*/
-
-        // let hideInput = document.getElementById('input-hide');
-        // console.log(hideInput);
-        // let hideCountdown = document.getElementById('countdown-hide');
-        // console.log(hideCountdown);
-        // hideCountdown.style.display = 'none';
-
-        // let button = document.querySelector("button");
-        // console.log(button);
-
-        // button.addEventListener('click', () => {
-        //     if (hideInput.style.display === 'none') {
-        //         hideInput.style.display = 'block';
-
-        //     } else {
-        //         hideInput.style.display = 'none';
-        //         hideCountdown.style.display = 'block';
-        //     }
-
-        // })
+        
     </script>
 
 

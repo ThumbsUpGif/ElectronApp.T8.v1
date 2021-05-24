@@ -5,7 +5,7 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"build-macOs": "electron-packager . OandD --out=./builds --overwrite --icon=./app_icons/FirstAttempt.icns"
+		"build-macOs": "electron-packager . Occasions_and_Deadlines --out=./builds --overwrite --icon=./app_icons/InterimAttempt.icns"
 	},
 	"repository": "",
 	"author": "Magnus Jorde",
